@@ -5,59 +5,61 @@
 
 module stochApp {
     'use strict';
-    interface MethodParameterList {
-        initial: number[];
-        sigma: number;
-        correlation: number;
-        tfinal: number;
-        dt: number;
-        pA: number[];
-        pD: number[];
-        method: stochastics.Method;
+    export interface MethodParameterList {
+        initial?: number[];
+        sigma?: number;
+        correlation?: number;
+        tfinal?: number;
+        dt?: number;
+        pA?: number[];
+        pD?: number[];
+        method?: stochastics.Method;
     }
-    interface Parameter {
+    export interface Parameter {
         name: string;
         default?: number;
     }
     interface IPScope extends ng.IScope {
-        vs: MethodParameterList;
-        detps: Parameter[];
-        stochps: Parameter[];
+        dimensions: string[];               // names of each dimension
+        vs: MethodParameterList;            // method values
+        detps: Parameter[];                 // deterministic parameters
+        stochps: Parameter[];               // stochastic parameters
         methods: any[];
     }
     class ParameterCtrl {
         constructor ($scope: IPScope) {
 
             // default data
-            $scope.vs.initial = [0.1, 0.1];
-            $scope.vs.sigma = 1;
-            $scope.vs.correlation = 0.01;
-            $scope.vs.tfinal = 40;
-            $scope.vs.dt = .01;
+            $scope.vs.initial =     $scope.vs.initial || [];
+            $scope.vs.sigma =       $scope.vs.sigma || 1;
+            $scope.vs.correlation = $scope.vs.correlation || 0.1;
+            $scope.vs.tfinal =      $scope.vs.tfinal || 50;
+            $scope.vs.dt =          $scope.vs.dt || .01;
             $scope.vs.pA = [];
-            for (var i in detps)
-                $scope.vs.pA.push(detps.default || 0);
+            for (var i in $scope.detps)
+                $scope.vs.pA.push($scope.detps[i].default || 0);
             $scope.vs.pD = [];
-            for (var i in stochps)
-                $scope.vs.pA.push(stochps.default || 0);
+            for (var i in $scope.stochps)
+                $scope.vs.pD.push($scope.stochps[i].default || 0);
 
             // Methods
             $scope.methods = [
-                {label: 'Euler-Maruyama', value: stochastics.Euler},
-                {label: 'Milstein', value: stochastics.Mistein},
-                {label: 'Coloured', value: stochastics.Colour},
+                {label: 'Euler-Maruyama', value: 1},
+                {label: 'Milstein', value: 2},
+                {label: 'Coloured', value: 3},
             ];
-            $scope.p.method = $scope.methods[0];
+            $scope.vs.method = $scope.methods[0];
         }
     }
 
     export function parameterDirective () {
         return {
-            restrict: 'E',
+            restrict: 'EA',
             scope: {
-                vs: '=values',
-                detps: '=det-params',
-                stochps: '=stoch-params',
+                vs: '=',
+                detps: '=',
+                stochps: '=',
+                dimensions: '=',
             },
             controller: ParameterCtrl,
             template:
@@ -78,30 +80,26 @@ module stochApp {
 <fieldset>
     <legend>Numerical Scheme</legend>
     <p>
-        <select id="sim-select" ng-model="method"
-            ng-options="m as m.label for m in methods">
+        <select id="sim-select" ng-model="vs.method"
+            ng-options="m as m.label for m in methods track by m.value">
         </select>
         <label for="sim-select">Simulation Method</label>
     </p>
     <p>
-        <input id="time-correlation" type="number" ng-model="correlation" />
+        <input id="time-correlation" type="number" ng-model="vs.correlation" />
         <label for="time-correlation">Time correlation</label>
     </p>
     <p>
-        <input id="dt" type="number" ng-model="dt" />
+        <input id="dt" type="number" ng-model="vs.dt" />
         <label for="dt">Time-step</label>
     </p>
     <p>
-        <input id="t-final" type="number" ng-model="tfinal" />
+        <input id="t-final" type="number" ng-model="vs.tfinal" />
         <label for="t-final">Final Time</label>
     </p>
-    <p>
-        <input id="x0" type="number" ng-model="initial[0]" />
-        <label for="x0">Initial X position</label>
-    </p>
-    <p>
-        <input id="y0" type="number" ng-model="initial[1]" />
-        <label for="y0">Initial Y position</label>
+    <p ng-repeat="d in dimensions">
+        <input id="init-{{$index}}" type="number" ng-model="vs.initial[$index]" />
+        <label for="init-{{$index}}">Initial {{d}}</label>
     </p>
 </fieldset>`,
         }
