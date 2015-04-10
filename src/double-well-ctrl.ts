@@ -1,6 +1,11 @@
-define(['./module', 'stochastics'], function (controllers, stoch) {
+// TODO make these into the correct requirements
+/// <reference path="../typings/angularjs/angular.d.ts" />
+/// <reference path="../lib/nAnts/stochastics.d.ts" />
+
+
+module stochApp {
     'use strict';
-    controllers.controller('simCtrl', ['$scope', function ($scope) {
+    export function SimCtrl($scope) {
         var dorbit = function (x,t,c) {
             return [ c[0] * x[1], 
                      c[0] * (x[0]-x[0]*x[0]*x[0])];
@@ -41,33 +46,19 @@ define(['./module', 'stochastics'], function (controllers, stoch) {
         ];
         $scope.method = $scope.methods[0];
 
-        /* Get the phase space from a simulation */
-        var extractPhase = function (sol) {
-            var t, N, x, y, d;
-            t = sol[0];
-            N = t.length;
-            x = sol[1].subarray(0,N);
-            y = sol[1].subarray(N,2*N);
-            d = [];
-            for (i=0; i<N; i++) {
-                d[i] = [ x[i],y[i] ];
-            }
-            return d;
-        };
-
         /* Simulation runner */
         $scope.runSimulation = function () {
-            var sol;
+            var sol: stochastics.Solution;
             if ($scope.method.value === 'euler')
-                sol = stoch.euler(dorbit, dconstant, $scope.initial, $scope.dt, 
+                sol = stochastics.euler(dorbit, dconstant, $scope.initial, $scope.dt, 
                         $scope.tfinal, $scope.pA, $scope.pD);
             else if ($scope.method.value === 'milstein')
-                sol = stoch.euler(dorbit, dconstant, $scope.initial, $scope.dt, 
+                sol = stochastics.euler(dorbit, dconstant, $scope.initial, $scope.dt, 
                         $scope.tfinal, $scope.pA, $scope.pD);
             else
-                sol = stoch.colour(dorbit, dconstant, $scope.sigma, $scope.correlation,
+                sol = stochastics.colour(dorbit, dconstant, $scope.sigma, $scope.correlation,
                         $scope.initial, $scope.dt, $scope.tfinal, $scope.pA, $scope.pD);
-            $scope.plotData = extractPhase(sol);
+            $scope.plotData = sol.getPhase(0,1);
         };
-    }]);
-});
+    }
+}

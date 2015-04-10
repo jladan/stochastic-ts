@@ -1,1 +1,5 @@
 lib/*
+typings/
+js/
+src/*.js
+src/**/*.js

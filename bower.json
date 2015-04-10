@@ -8,8 +8,8 @@
   ],
   "dependencies": {
     "angular": "latest",
-    "requirejs-domready": "latest",
     "d3": "latest",
-    "requirejs": "~2.1.15"
+    "nAnts": "git@github.com:jladan/bower-nAnts.git",
+    "ng-graphs": "git@github.com:jladan/bower-ng-graphs.git"
   }
 }
