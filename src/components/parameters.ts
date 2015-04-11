@@ -85,7 +85,7 @@ module stochApp {
         </select>
         <label for="sim-select">Simulation Method</label>
     </p>
-    <p>
+    <p ng-show="vs.method.value === 3">
         <input id="time-correlation" type="number" ng-model="vs.correlation" />
         <label for="time-correlation">Time correlation</label>
     </p>
