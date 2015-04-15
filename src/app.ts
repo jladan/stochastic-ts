@@ -12,7 +12,7 @@ module stochApp {
     angular.module('app', [
         'plotModule',
     ])
-    .controller('simCtrl', DWellCtrl)
+    .controller('simCtrl', MyCtrl)
     .directive('parameters', parameterDirective)
     ;
 

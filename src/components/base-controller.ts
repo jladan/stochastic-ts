@@ -45,8 +45,12 @@ module stochApp {
                      c[0]];
         }
 
+        updateData(sol: stochastics.Solution) {
+            this.$scope.plotData = sol.getPhase(0,1);
+        }
+
         static $inject = ['$scope'];
-        constructor(private $scope) {
+        constructor(public $scope) {
             $scope.mv = this;
 
             //dummy data
@@ -63,7 +67,7 @@ module stochApp {
                 else
                     sol = stochastics.colour(this.A, this.D, $scope.params.sigma, $scope.params.correlation,
                             $scope.params.initial, $scope.params.dt, $scope.params.tfinal, $scope.params.pA, $scope.params.pD);
-                $scope.plotData = sol.getPhase(0,1);
+                this.updateData(sol);
             };
         }
         setUpConfig() {

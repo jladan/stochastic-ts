@@ -20,10 +20,13 @@
 </div>
 
 <!-- This is where the plot will go-->
-<div plot data='plotData' options="plotConfig" style="flex-grow: 1; height:100%">
+<div style="display: flex; flex-direction: column;height: 100%; flex-grow: 1">
+    <div plot data='trailData' options="trailConfig" style="flex-grow: 1"> </div>
+    <div plot data='velData' options="trailConfig" style="flex-grow: 1"></div>
+    <div plot data='phaseData' options="phaseConfig" style="flex-grow: 1"></div>
+</div>
 </div>
 
-</div>
   <script src="lib/angular/angular.js" ></script>
   <script src="lib/d3/d3.js" ></script>
   <script src="lib/ng-graphs/plot.js" ></script>

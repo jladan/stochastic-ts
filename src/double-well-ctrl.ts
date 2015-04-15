@@ -1,18 +1,25 @@
-// TODO make these into the correct requirements
 /// <reference path="components/base-controller.ts" />
-
+/// <reference path="../lib/nAnts/stochastics.d.ts" />
 
 module stochApp {
     'use strict';
-    export class DWellCtrl extends SimCtrl {
+    /** This is a simulation of a particle moving in a one-dimensional double well
+     * the brownian motion is applied only to the velocity term
+     */
+    export class MyCtrl extends SimCtrl {
         /*** The rest can be changed to suit the problem at hand ***/
 
-        title = "Double well Hamiltonian example";
-        description = `This is a simple example of the stochastic simulation framework. The dynamical system is defined as the Hamiltonian of a potential well \\ \[ \\phi(x,y) = 1/4 x^4 - 1/2 x^2 + 1/2 y^2 \\ \]
-        with brownian motion. All the simulation parameters are adjustible including the strength of the dynamics vs. the stochastic terms.`
+        title = "Double potential well problem";
+        description = "This is a simulation of the system \\[\\ddot{x} = -U(x) -\\lambda \\dot{x} + \\eta\\] where \\(U\\) is" +
+            " the potential function given by \\[U(x) = \\frac{1}{4} x^4 - \\frac{1}{2} x^2 . \\]"
+        ;
 
         /* plot settings */
-        plotConfig = {
+        trailConfig = {
+            xDomain: [0,50],
+            yDomain: [-2,2],
+        };
+        phaseConfig = {
             xDomain: [-2,2],
             yDomain: [-2,2],
         };
@@ -29,29 +36,37 @@ module stochApp {
         };
         // System parameters
         detParams = [
-            {name: 'Speed', default: 1.0},
+            {name: 'Potential strength', default: 1.0},
+            {name: 'Damping', default: .1},
         ];
         stochParams = [
             {name: 'brownian motion effect', default: 0.1},
         ];
-        dims = ['X', 'Y'];
+        dims = ['\\(x\\)', '\\(\\dot{x}\\)'];
 
         /** System dynamics (non-stochastic) 
-         * In this case, it is the hamiltonian of \phi(x, y) = 1/4 x^4 - 1/2 x^2 + 1/2 y^2
          */
         A(x, t, c) {
-            return [ c[0] * x[1], 
-                     c[0] * (x[0]-x[0]*x[0]*x[0])];
+            return [ x[1], 
+                     c[0] * (x[0]-x[0]*x[0]*x[0]) - c[1]*x[1]];
         }
         /** System dynamics (stochastic) 
-         * Brownian motion
          */
         D(x, t, c) {
-            return [ c[0], 
+            return [ 0, 
                      c[0]];
+        }
+
+        updateData(sol: stochastics.Solution) {
+            this.$scope.trailData = sol.getTrail(0);
+            this.$scope.velData = sol.getTrail(1);
+            this.$scope.trailConfig.xDomain = [0, this.$scope.params.tfinal];
+            this.$scope.phaseData = sol.getPhase(0,1);
         }
         constructor($scope) { super($scope); this.setUpConfig();
             /* Custom functions and behaviour can go here */
+            $scope.trailConfig = this.trailConfig;
+            $scope.phaseConfig = this.phaseConfig;
         }
     }
 }
