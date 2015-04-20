@@ -1,3 +1,42 @@
-html {width:100%; height:100%;}
-body {width:90%; height:90%;}
-.wrapper {display:flex; flex-direction: row; width:100%; height:100%;}
+* {
+    box-sizing: border-box;
+}
+html {
+    width:100%;
+    height:100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+    width: 100%;
+    height: 90%;
+    diplay: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+.description {
+    flex: none;
+}
+.controls {
+    flex: none;
+}
+.controls form {
+    width: 100%;
+    display: flex;
+}
+.controls form fieldset {
+    flex: 1 0 auto;
+}
+.plots {
+    display: flex; 
+    flex-direction: row; 
+    flex: 1 1 auto;
+}
+.plot-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+}
+

@@ -9,9 +9,10 @@
 </head>
 <body ng-controller="simCtrl">
 
+<div class="description">
 <h2>{{title}}</h2>
 <p>{{description}}</h2>
-<div class="wrapper">
+</div>
 <div class="controls">
     <!-- Put the form to adjust parameters here -->
     <form parameters vs="params" detps="detParams" stochps="stochParams" dimensions="dims">
@@ -19,12 +20,18 @@
     <button ng-click="runSimulation()">Run Simulation</button>
 </div>
 
-<!-- This is where the plot will go-->
-<div style="display: flex; flex-direction: column;height: 100%; flex-grow: 1">
-    <div plot data='trailData' options="trailConfig" style="flex-grow: 1"> </div>
-    <div plot data='velData' options="trailConfig" style="flex-grow: 1"></div>
-    <div plot data='phaseData' options="phaseConfig" style="flex-grow: 1"></div>
-</div>
+<!-- This is where the plots will go-->
+<div class="plots" >
+    <div class="plot-column" >
+        <div plot data='trailData' options="trailConfig" style="flex-grow: 1"> </div>
+        <div plot data='velData' options="trailConfig" style="flex-grow: 1"></div>
+        <div plot data='phaseData' options="phaseConfig" style="flex-grow: 1"></div>
+    </div>
+    <div class="plot-column" >
+        <div plot data='trailData' options="trailConfig" style="flex-grow: 1"> </div>
+        <div plot data='velData' options="trailConfig" style="flex-grow: 1"></div>
+        <div plot data='phaseData' options="phaseConfig" style="flex-grow: 1"></div>
+    </div>
 </div>
 
   <script src="lib/angular/angular.js" ></script>
