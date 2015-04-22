@@ -10,7 +10,7 @@ module stochApp {
         /*** The rest can be changed to suit the problem at hand ***/
 
         title = "Double potential well problem";
-        description = "This is a simulation of the system \\[\\ddot{x} = -U(x) -\\lambda \\dot{x} + \\eta\\] where \\(U\\) is" +
+        description = "This is a simulation of the system \\[\\ddot{x} = -U'(x) -\\lambda \\dot{x} + \\eta\\] where \\(U\\) is" +
             " the potential function given by \\[U(x) = \\frac{1}{4} x^4 - \\frac{1}{2} x^2 . \\]"
         ;
 

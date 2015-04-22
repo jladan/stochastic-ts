@@ -23,20 +23,32 @@
 <!-- This is where the plots will go-->
 <div class="plots" >
     <div class="plot-column" >
-        <div plot data='trailData' options="trailConfig" style="flex-grow: 1"> </div>
-        <div plot data='velData' options="trailConfig" style="flex-grow: 1"></div>
-        <div plot data='phaseData' options="phaseConfig" style="flex-grow: 1"></div>
+        <div axes options="trailConfig" style="flex-grow: 1"> 
+            <plot data="trailData" options="trailConfig">
+        </div>
+        <div axes options="trailConfig" style="flex-grow: 1"> 
+            <plot data="velData" options="trailConfig">
+        </div>
+        <div axes options="phaseConfig" style="flex-grow: 1"> 
+            <plot data="phaseData" options="phaseConfig">
+        </div>
     </div>
     <div class="plot-column" >
-        <div plot data='trailData' options="trailConfig" style="flex-grow: 1"> </div>
-        <div plot data='velData' options="trailConfig" style="flex-grow: 1"></div>
-        <div plot data='phaseData' options="phaseConfig" style="flex-grow: 1"></div>
+        <div axes options="trailConfig" style="flex-grow: 1"> 
+            <plot data="trailData" options="trailConfig">
+        </div>
+        <div axes options="trailConfig" style="flex-grow: 1"> 
+            <plot data="velData" options="trailConfig">
+        </div>
+        <div axes options="phaseConfig" style="flex-grow: 1"> 
+            <plot data="phaseData" options="phaseConfig">
+        </div>
     </div>
 </div>
 
   <script src="lib/angular/angular.js" ></script>
   <script src="lib/d3/d3.js" ></script>
-  <script src="lib/ng-graphs/plot.js" ></script>
+  <script src="lib/ng-graphs/graphs.js" ></script>
   <script src="lib/nAnts/stochastics.js" ></script>
   <script src="js/app.js" ></script>
 </body>

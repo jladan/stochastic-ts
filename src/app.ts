@@ -10,7 +10,7 @@ module stochApp {
 'use strict';
 
     angular.module('app', [
-        'plotModule',
+        'ngGraphs',
     ])
     .controller('simCtrl', MyCtrl)
     .directive('parameters', parameterDirective)
