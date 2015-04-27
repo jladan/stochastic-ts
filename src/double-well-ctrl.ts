@@ -36,7 +36,9 @@ module stochApp {
         };
         // System parameters
         detParams = [
-            {name: 'Potential strength', default: 1.0},
+            {name: 'Potential quartic', default: 1.0},
+            {name: 'Potential quadratic', default: 1.0},
+            {name: 'Potential shift', default: 0.0},
             {name: 'Damping', default: .1},
         ];
         stochParams = [
@@ -48,7 +50,7 @@ module stochApp {
          */
         A(x, t, c) {
             return [ x[1], 
-                     c[0] * (x[0]-x[0]*x[0]*x[0]) - c[1]*x[1]];
+                     (c[1]*(x[0]-c[2])-c[0]*x[0]*x[0]*x[0]) - c[3]*x[1]];
         }
         /** System dynamics (stochastic) 
          */
@@ -67,6 +69,11 @@ module stochApp {
             /* Custom functions and behaviour can go here */
             $scope.trailConfig = this.trailConfig;
             $scope.phaseConfig = this.phaseConfig;
+            $scope.potentialConfig = {xDomain: [-2,2], yDomain: [-0.5,2]};
+            $scope.potentialFunction = function (x) { return $scope.params.pA[0]*Math.pow(x, 4)/4 - $scope.params.pA[1]*Math.pow(x-$scope.params.pA[2], 2)/2; };
+            $scope.$watch('params.pA', function (n, o) {
+                $scope.potentialFunction = function (x) { return n[0]*Math.pow(x, 4)/4 - n[1]*Math.pow(x-n[2], 2)/2; };
+            }, true);
         }
     }
 }

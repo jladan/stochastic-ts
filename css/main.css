@@ -40,3 +40,6 @@ body {
     flex: 1 0 auto;
 }
 
+div[axes] {
+    flex-grow: 1;
+}

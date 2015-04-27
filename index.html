@@ -23,24 +23,24 @@
 <!-- This is where the plots will go-->
 <div class="plots" >
     <div class="plot-column" >
-        <div axes options="trailConfig" style="flex-grow: 1"> 
+        <div axes options="potentialConfig" > 
+            <function f="potentialFunction" options="{strokeWidth:2, color:'blue'}">
+        </div>
+        <div axes options="trailConfig" > 
             <plot data="trailData" options="trailConfig">
         </div>
-        <div axes options="trailConfig" style="flex-grow: 1"> 
+        <div axes options="trailConfig" > 
             <plot data="velData" options="trailConfig">
-        </div>
-        <div axes options="phaseConfig" style="flex-grow: 1"> 
-            <plot data="phaseData" options="phaseConfig">
         </div>
     </div>
     <div class="plot-column" >
-        <div axes options="trailConfig" style="flex-grow: 1"> 
-            <plot data="trailData" options="trailConfig">
+        <div axes options="phaseConfig" > 
+            <plot data="phaseData" options="phaseConfig">
         </div>
-        <div axes options="trailConfig" style="flex-grow: 1"> 
+        <div axes options="trailConfig" > 
             <plot data="velData" options="trailConfig">
         </div>
-        <div axes options="phaseConfig" style="flex-grow: 1"> 
+        <div axes options="phaseConfig" > 
             <plot data="phaseData" options="phaseConfig">
         </div>
     </div>
