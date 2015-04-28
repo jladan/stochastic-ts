@@ -8,22 +8,7 @@ module stochApp {
      */
     export class MyCtrl extends SimCtrl {
         /*** The rest can be changed to suit the problem at hand ***/
-
-        title = "Double potential well problem";
-        description = "This is a simulation of the system \\[\\ddot{x} = -U'(x) -\\lambda \\dot{x} + \\eta\\] where \\(U\\) is" +
-            " the potential function given by \\[U(x) = \\frac{1}{4} x^4 - \\frac{1}{2} x^2 . \\]"
-        ;
-
-        /* plot settings */
-        trailConfig = {
-            xDomain: [0,50],
-            yDomain: [-2,2],
-        };
-        phaseConfig = {
-            xDomain: [-2,2],
-            yDomain: [-2,2],
-        };
-
+        
         // default parameters
         params = {
             initial: [0.5, 0],
@@ -67,11 +52,26 @@ module stochApp {
         }
         constructor($scope) { super($scope); this.setUpConfig();
             /* Custom functions and behaviour can go here */
-            $scope.trailConfig = this.trailConfig;
-            $scope.phaseConfig = this.phaseConfig;
-            $scope.potentialConfig = {xDomain: [-2,2], yDomain: [-0.5,2]};
+            /* plot settings */
+            $scope.trailConfig = {
+                xDomain: [0,50],
+                yDomain: [-2,2],
+            };
+            $scope.phaseConfig = {
+                xDomain: [-2,2],
+                yDomain: [-2,2],
+            };
+            $scope.potentialConfig = {
+                xDomain: [-2,2],
+                yDomain: [-0.5,2]
+            };
+
+            // XXX The potentialFunction needs to be defined early for the child plot, because that isn't handled gracefully yet
             $scope.potentialFunction = function (x) { return $scope.params.pA[0]*Math.pow(x, 4)/4 - $scope.params.pA[1]*Math.pow(x-$scope.params.pA[2], 2)/2; };
             $scope.$watch('params.pA', function (n, o) {
+                // Update the potential function with new parameters.
+                // It's also possible to change the domain in the axes here,
+                // but I will be adding auto-scaling soon.
                 $scope.potentialFunction = function (x) { return n[0]*Math.pow(x, 4)/4 - n[1]*Math.pow(x-n[2], 2)/2; };
             }, true);
         }
