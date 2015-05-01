@@ -45,10 +45,14 @@ module stochApp {
         }
 
         updateData(sol: stochastics.Solution) {
-            this.$scope.trailData = sol.getTrail(0);
-            this.$scope.velData = sol.getTrail(1);
+            // XXX It's hard-set to 1000 samples here. This downsampling can
+            // cause aliasing issues for longer runs
+            var outStep = Math.ceil(this.$scope.params.tfinal / (this.$scope.params.dt * 1000));
+            console.log(outStep, this.$scope.params.tfinal / this.$scope.params.dt);
+            this.$scope.trailData = sol.getTrail(0, outStep);
+            this.$scope.velData = sol.getTrail(1, outStep);
             this.$scope.trailConfig.xDomain = [0, this.$scope.params.tfinal];
-            this.$scope.phaseData = sol.getPhase(0,1);
+            this.$scope.phaseData = sol.getPhase(0,1, outStep);
         }
         constructor($scope) { super($scope); this.setUpConfig();
             /* Custom functions and behaviour can go here */
