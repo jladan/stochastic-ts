@@ -4,15 +4,20 @@ This is mainly a simple template for running a stochastic simulation demo. The e
 
 ## Installation
 
-The demo has a few dependencies, notably [AngularJS](http://angularjs.org) and [D3](http://d3js.org), as well as our own libraries [nAnts](https://github.com/jladan/nAnts) (for calculations) and [ng-graphs](https://github.com/jladan/ng-graphs) (for plots). They can be installed using [Bower](http://bower.io) with the command
+To build the demo (compile the typescript), there are a few dev dependencies. First, install them with [npm](https://www.npmjs.com/)
+
+    npm install
+
+Next, the type declarations for the javascript libraries used on the site. Using `tsd`,
+
+    tsd update
+
+Finally, the demo itself has a few dependencies, notably [AngularJS](http://angularjs.org) and [D3](http://d3js.org), as well as our own libraries [nAnts](https://github.com/jladan/nAnts) (for calculations) and [ng-graphs](https://github.com/jladan/ng-graphs) (for plots). They can be installed using [Bower](http://bower.io) with the command
 
     bower install
 
-If missing, bower can be installed with 
+The libraries installed with bower are the only ones needed for actual deployment.
 
-    npm install -g bower
-
-You may need sudo privileges to install bower globally. Finally, if [npm](https://www.npmjs.com/) is missing, you'll have to figure it out yourself, because it's different depending on platform.
 
 ## Customization
 
@@ -21,6 +26,10 @@ As of this writing, customization is done by creating a controller (based off `s
 After changing the source files, the app will have to be re-compiled. This is done using the command
 
     tsc @buildflags
+
+## Multiple demos
+
+The `src/app.ts`, `src/double-well-ctrl.js`, and `index.html` files can be copied to make new demos. Simply change the reference at the top of `src/app.ts` to the new controller, and change the script tag in `index.html` to point to the new javascript app.
 
 ## Future plans
 

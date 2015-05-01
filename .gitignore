@@ -1,4 +1,5 @@
 lib/*
+node_modules/
 typings/
 js/
 src/*.js

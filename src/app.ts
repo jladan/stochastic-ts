@@ -18,7 +18,6 @@ module stochApp {
         return {
             restrict: 'AE',
             link: function (scope, element) {
-                var storedDom = element;
                 var newDom = element.clone();
                 element.replaceWith(newDom);
                 var pre = "\\(", post = "\\)";
