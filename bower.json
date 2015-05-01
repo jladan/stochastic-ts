@@ -9,7 +9,7 @@
   "dependencies": {
     "angular": "latest",
     "d3": "latest",
-    "nAnts": "git@github.com:jladan/bower-nAnts.git",
-    "ng-graphs": "git@github.com:jladan/bower-ng-graphs.git"
+    "nAnts": "https://github.com/jladan/bower-nAnts.git",
+    "ng-graphs": "https://github.com/jladan/bower-ng-graphs.git"
   }
 }
