@@ -53,6 +53,8 @@ module stochApp {
             this.$scope.velData = sol.getTrail(1, outStep);
             this.$scope.trailConfig.xDomain = [0, this.$scope.params.tfinal];
             this.$scope.phaseData = sol.getPhase(0,1, outStep);
+
+            this.$scope.histData = 4;// ...
         }
         constructor($scope) { super($scope); this.setUpConfig();
             /* Custom functions and behaviour can go here */
