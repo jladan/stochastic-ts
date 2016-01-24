@@ -18,6 +18,17 @@ Finally, the demo itself has a few dependencies, notably [AngularJS](http://angu
 
 The libraries installed with bower are the only ones needed for actual deployment.
 
+## Compilation
+
+The demo can be compiled by running the command
+
+    tsc --out js/app.js src/app.js
+    
+or with
+
+    tsc @fuildflags
+    
+After which, the page can be viewed by opening `index.html`.
 
 ## Customization
 
