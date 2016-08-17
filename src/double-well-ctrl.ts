@@ -1,6 +1,7 @@
 /// <reference path="components/base-controller.ts" />
 /// <reference path="../lib/nAnts/stochastics.d.ts" />
 
+
 module stochApp {
     'use strict';
     /** This is a simulation of a particle moving in a one-dimensional double well
@@ -33,13 +34,13 @@ module stochApp {
 
         /** System dynamics (non-stochastic) 
          */
-        A(x, t, c) {
+        A(x : number[], t : number[], c : number []) {
             return [ x[1], 
                      (c[1]*(x[0]-c[2])-c[0]*x[0]*x[0]*x[0]) - c[3]*x[1]];
         }
         /** System dynamics (stochastic) 
          */
-        D(x, t, c) {
+        D(x : number[], t : number[], c : number[]) {
             return [ 0, 
                      c[0]];
         }
